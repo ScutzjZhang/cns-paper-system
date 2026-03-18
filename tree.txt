@@ -1,18 +1,20 @@
 cns-paper-system/
-├── core/
-│   ├── skill_scheduler.py      # 动态调度核心
-│   ├── local_memory.py         # 本地记忆库管理
-│   └── ieee_cns_rules.py       # IEEE CNS格式规则引擎
-├── tools/
-│   ├── ollama_generator.py     # 本地模型生成器
-│   └── cherry_api.py           # 可选的外部API精炼器
+├── edict/                       # 三省六部框架核心
+│   ├── __init__.py
+│   ├── scheduler.py             # 任务调度器（吏部）
+│   ├── memory.py                 # 本地记忆库（户部）
+│   ├── executor.py               # 执行器（兵部）
+│   └── skills/                   # 技能库
+│       ├── opendraft_writer.py   # 初稿生成（Opendraft + Ollama）
+│       ├── openclaw_retriever.py # 知识检索（OpenClaw）
+│       └── cherry_refiner.py     # 精炼器（Cherry Studio API）
 ├── data/
-│   ├── cns_knowledge_base/     # 预置知识库（论文片段）
-│   └── templates/              # 章节模板（可扩展）
+│   ├── knowledge_base/           # 论文片段库（自动扩充）
+│   └── templates/                 # IEEE CNS章节模板
 ├── examples/
-│   └── topic.txt               # 示例输入文件
-├── output/                      # 生成结果存放目录
-├── requirements.txt             # Python依赖
-├── generate.py                  # 主程序（接收文件输入）
-├── run_demo.sh                  # 一键运行示例
-└── README.md                    # 详细使用指南
+│   └── topic.txt                  # 示例输入
+├── output/                        # 生成结果
+├── requirements.txt
+├── config.yaml                    # 全局配置（token预算、API密钥）
+├── generate.py                    # 主入口
+└── run.sh                         # 一键运行脚本
