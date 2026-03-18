@@ -1,0 +1,10 @@
+[
+    {
+        "topic": "implications",
+        "text": "These findings have important implications for the design of adaptive learning systems. The integration of reinforcement learning with cognitive architectures could lead to more human-like learning in robots."
+    },
+    {
+        "topic": "limitations",
+        "text": "One limitation is the relatively small sample size, which may limit generalizability. Future studies should replicate the experiment with larger and more diverse populations."
+    }
+]

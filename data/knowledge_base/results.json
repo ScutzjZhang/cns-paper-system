@@ -1,0 +1,10 @@
+[
+    {
+        "topic": "statistical analysis",
+        "text": "A two-way ANOVA revealed a significant main effect of condition (F(1,58)=12.34, p<0.001, η²=0.18). Post-hoc tests using Bonferroni correction showed that the experimental group outperformed the control group (mean difference = 0.45, 95% CI [0.21, 0.69])."
+    },
+    {
+        "topic": "performance metrics",
+        "text": "The proposed method achieved an accuracy of 87.3% on the test set, surpassing the baseline by 12.5%. Precision and recall were 0.89 and 0.85 respectively."
+    }
+]

@@ -1,0 +1,10 @@
+[
+    {
+        "topic": "cognitive architecture",
+        "text": "Cognitive architectures have been widely used to model human learning and decision-making processes. Recent work in developmental robotics emphasizes incremental skill acquisition through interaction with the environment."
+    },
+    {
+        "topic": "reinforcement learning",
+        "text": "Reinforcement learning (RL) provides a framework for agents to learn optimal behaviors via trial-and-error. In cognitive systems, RL is often combined with hierarchical structures to enable complex task decomposition."
+    }
+]

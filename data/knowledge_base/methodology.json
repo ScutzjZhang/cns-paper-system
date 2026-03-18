@@ -1,0 +1,10 @@
+[
+    {
+        "topic": "experimental design",
+        "text": "The experimental setup followed a between-subjects design with 30 participants per condition. All procedures were approved by the institutional review board and adhered to IEEE ethical guidelines."
+    },
+    {
+        "topic": "computational modeling",
+        "text": "The proposed model was implemented in Python using PyTorch. Training was performed on an NVIDIA RTX 3090 for 500 epochs with a learning rate of 0.001."
+    }
+]
