@@ -1,0 +1,53 @@
+import os
+from core.local_memory import LocalMemory
+from tools.ollama_generator import generate_local
+from tools.cherry_api import refine_with_api
+import numpy as np
+
+class SkillScheduler:
+    def __init__(self, token_budget_per_day=500, enable_api=False):
+        self.memory = LocalMemory()
+        self.token_budget = token_budget_per_day
+        self.token_used = 0
+        self.enable_api = enable_api
+        
+    def execute(self, task):
+        # 1. 本地记忆检索
+        cached = self.memory.search(task["topic"], task["section"])
+        if cached:
+            return cached
+        
+        # 2. 本地生成
+        local_result = generate_local(task["topic"], task["section"])
+        
+        # 3. 质量评估
+        quality = self._assess_quality(local_result, task["section"])
+        
+        # 4. 可选API精炼
+        if self.enable_api and quality < 0.7 and (self.token_budget - self.token_used) > 150:
+            api_result = refine_with_api(local_result, task["section"])
+            self.token_used += 150
+            if self._assess_quality(api_result, task["section"]) >= 0.85:
+                self.memory.store(task["topic"], task["section"], api_result)
+            return api_result
+        
+        # 5. 本地后处理并存储
+        final_text = self._apply_ieee_rules(local_result, task["section"])
+        self.memory.store(task["topic"], task["section"], final_text)
+        return final_text
+    
+    def _assess_quality(self, text, section):
+        # 简化版质量评估（基于术语匹配和长度）
+        cns_terms = {
+            "introduction": ["cognitive architecture", "developmental trajectory"],
+            "methodology": ["experimental paradigm", "computational modeling"],
+            "results": ["statistically significant", "effect size"]
+        }
+        terms = cns_terms.get(section, [])
+        term_score = sum(1 for t in terms if t in text.lower()) / max(len(terms),1)
+        len_score = min(len(text)/500, 1.0)
+        return term_score * 0.7 + len_score * 0.3
+    
+    def _apply_ieee_rules(self, text, section):
+        from core.ieee_cns_rules import apply_rules
+        return apply_rules(text, section)

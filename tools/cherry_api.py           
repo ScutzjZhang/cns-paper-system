@@ -1,0 +1,21 @@
+import os
+import openai  # 需要安装 openai
+
+def refine_with_api(content, section, max_tokens=150):
+    api_key = os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        return content  # 无API key时返回原内容
+    openai.api_key = api_key
+    try:
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": "You are an expert IEEE CNS paper writer."},
+                {"role": "user", "content": f"Improve this {section} section to meet CNS standards:\n{content}"}
+            ],
+            max_tokens=max_tokens,
+            temperature=0.3
+        )
+        return response.choices[0].message.content
+    except:
+        return content

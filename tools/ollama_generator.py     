@@ -1,0 +1,15 @@
+import requests
+import json
+
+def generate_local(topic, section, max_tokens=200):
+    prompt = f"Write the {section} section of a IEEE CNS paper about '{topic}'. Use formal academic language, avoid first person."
+    try:
+        response = requests.post(
+            "http://localhost:11434/api/generate",
+            json={"model": "mistral:7b-instruct-v0.2-q4_0", "prompt": prompt, "stream": False, "options": {"num_predict": max_tokens}}
+        )
+        if response.status_code == 200:
+            return response.json()["response"]
+    except:
+        pass
+    return f"[Local generation failed for {section}]"
